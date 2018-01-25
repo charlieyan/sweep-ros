@@ -51,6 +51,10 @@ void publish_scan(ros::Publisher *pub,
         range = sample.distance;
         angle = ((float)sample.angle / 1000); //millidegrees to degrees
 
+        if (angle > 20.0 && angle < 160.0) {
+            continue;
+        }
+
         //Polar to Cartesian Conversion
         x = (range * cos(DEG2RAD(angle))) / 100;
         y = (range * sin(DEG2RAD(angle))) / 100;
@@ -92,10 +96,10 @@ int main(int argc, char *argv[]) try
 
     //Get frame id Parameters
     std::string frame_id;
-    nh_private.param<std::string>("frame_id", frame_id, "laser_frame");
+    nh_private.param<std::string>("frame_id", frame_id, "horizontal_laser_link");
 
     //Setup Publisher
-    ros::Publisher scan_pub = nh.advertise<sensor_msgs::PointCloud2>("pc2", 1000);
+    ros::Publisher scan_pub = nh.advertise<sensor_msgs::PointCloud2>("points2", 1000);
 
     //Create Sweep Driver Object
     sweep::sweep device{serial_port.c_str()};

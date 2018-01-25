@@ -10,7 +10,7 @@
     <!-- run pointcloud_to_laserscan node -->
     <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
 
-        <remap from="cloud_in" to="pc2"/>
+        <remap from="cloud_in" to="points2"/>
         <rosparam>
             target_frame: laser_frame # Leave disabled to output scan in pointcloud frame
             transform_tolerance: 0.001
